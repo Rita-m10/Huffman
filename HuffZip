@@ -1,0 +1,48 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <list>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+class Node
+{
+    public:
+    int key;
+    char s;
+    Node *left;
+    Node *right;
+    
+    Node()
+    {
+        key = 0;
+        s = 0;
+        left = nullptr;
+		    right = nullptr;
+    }
+
+    Node(Node *l, Node *r)
+	  {
+        left =  l;
+        right = r;
+        key = l->key + r->key;
+    }
+
+    void tabCreater()
+    {
+        if (left != nullptr)
+        {
+            code.push_back(0);
+            left->tabCreater();
+        }
+        if (right != nullptr)
+        {
+            code.push_back(1);
+            right->tabCreater();
+        }
+        if (left == nullptr && right == nullptr) 
+			      Table[s] = code;
+        code.pop_back();
+    }
