@@ -46,3 +46,4 @@ class Node
 			      Table[s] = code;
         code.pop_back();
     }
+    
