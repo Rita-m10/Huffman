@@ -77,6 +77,16 @@ int main()
     int numberOfPairs;
     In.read((char*)&numberOfPairs, sizeof(numberOfPairs));
 	
-    
+    //Чтение пар (символ - частота) и формирование списка узлов
+    unsigned char s;
+    int k;
+    list<Node*>List;
+    for (size_t i = 0; i < numberOfPairs; i++){
+        In.read((char*)&s, sizeof(s));
+        In.read((char*)&k, sizeof(k));
+
+        Node* uzel = new Node(s, k);
+        List.push_back(uzel);
+    }
     
 
