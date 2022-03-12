@@ -8,8 +8,7 @@
 using namespace std;
 
 //Клас узел
-class Node
-{
+class Node{
     public:
     int key;           //Частота
     unsigned char s;   //Символ
