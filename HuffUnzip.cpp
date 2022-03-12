@@ -89,4 +89,62 @@ int main()
         List.push_back(uzel);
     }
     
+    //Строим дерево по списку
+    while (List.size() != 1){
+        Node* l = List.front();
+        List.pop_front();
+        Node* r = List.front();
+        List.pop_front();
+
+        Node* newUzel = new Node(l,r);
+
+        auto iter = List.begin();
+
+        for (; iter != List.end();){
+            if (newUzel->key > (*iter)->key)
+                iter++;
+            else
+                break;
+        }
+        List.insert(iter, newUzel);
+    }
+
+    //Восстанавливаем булевы векторы к каждому символу
+    vector<bool> code;
+    map<char, vector<bool>>* SymCode = new map<char, vector<bool>>;
+    TreeGo(*(List.begin()), code, SymCode);
+
+    //Меняем местами булев вектор и символ местами
+    map<vector<bool>, char>* CodeSym = new map<vector<bool>, char>;
+    for (auto it : *SymCode)
+        (*CodeSym)[it.second] = it.first;
+
+    unsigned char c = 0;
+    vector <bool> temp;
+    
+	//Восстанавливаем сжатый текст
+    while (((c = In.get())|| c==0) && !In.eof()){
+        auto endOfFile = In.peek();
+        for (size_t i = 0; i < 8; i++){
+            if (bool((1 << (7 - i)) & c))
+                temp.push_back(1);
+            else
+                temp.push_back(0);
+
+            auto iter = CodeSym->find(temp);
+            if (iter == CodeSym->end())
+                continue;
+            temp.clear();
+            Out << iter->second;
+
+            if (endOfFile == EOF && i + 1 == lastByte)
+                break;
+        }
+    }
+
+    Out.close();
+    In.close();
+
+    return 0;
+}
 
